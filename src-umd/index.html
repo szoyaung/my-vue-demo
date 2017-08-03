@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="./css/base.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css"/>
+
+    <script src="./plugin/jquery/js/jquery-2.1.1.min.js"></script>
+    <script src="./plugin/drag.js"></script>
+    <script src="../src/plugin/vue/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="../dist/test.js"></script>
+</head>
+<body>
+    <div id="appIndex">
+        <head-tab v-on:jqcj_click="showJqcj"
+                  v-on:zhyp_click="showZhyp"
+                  v-on:ztfx_click="showZtfx"
+                  jqcz="警情处置" v-bind:zhyp="title.zhyp" v-bind:ztfx="title.ztfx">
+        </head-tab>
+
+        <base-container class="base-container"
+                        :head-Title="jqcj.headTitle"
+                        :footer-Title="jqcj.footerTitle"
+                        :has-footer="jqcj.hasFooter"
+                        :head-Img="jqcj.headImg"
+                        :show-Comp="jqcj.showComp"
+                        @close_click="Jqcj_close_click">
+            <div slot="container">警情处置</div>
+        </base-container>
+
+        <base-container class="base-container"
+                        :head-Title="zhyp.headTitle"
+                        :footer-Title="zhyp.footerTitle"
+                        :has-footer="zhyp.hasFooter"
+                        :head-Img="zhyp.headImg"
+                        :show-Comp="zhyp.showComp"
+                        @close_click="Zhyp_close_click">
+            <div slot="container">综合研判</div>
+        </base-container>
+
+        <base-container class="base-container"
+                        :head-Title="ztfx.headTitle"
+                        :footer-Title="ztfx.footerTitle"
+                        :has-footer="ztfx.hasFooter"
+                        :head-Img="ztfx.headImg"
+                        :show-Comp="ztfx.showComp"
+                        @close_click="Ztfx_close_click">
+            <div slot="container">质态分析</div>
+        </base-container>
+    </div>
+
+    <script src="./js/index.js"></script>
+</body>
+</html>

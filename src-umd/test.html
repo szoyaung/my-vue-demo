@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+
+
+<div id="app">
+    <h1>Named Views</h1>
+    <ul>
+        <li>
+            <router-link to="/">/</router-link>
+        </li>
+        <li>
+            <router-link to="/other">/other</router-link>
+        </li>
+    </ul>
+    <router-view class="view one"></router-view>
+    <router-view class="view two" name="a"></router-view>
+    <router-view class="view three" name="b"></router-view>
+</div>
+<script>
+    const Foo = { template: '<div>foo</div>' }
+    const Bar = { template: '<div>bar</div>' }
+    const Baz = { template: '<div>baz</div>' }
+
+    const router = new VueRouter({
+        mode: 'history',
+        routes: [
+            { path: '/',
+                // a single route can define multiple named components
+                // which will be rendered into <router-view>s with corresponding names.
+                components: {
+                    default: Foo,
+                    a: Bar,
+                    b: Baz
+                }
+            },
+            {
+                path: '/other',
+                components: {
+                    default: Baz,
+                    a: Bar,
+                    b: Foo
+                },
+                meta: { requiresAuth: true }
+            }
+        ]
+    })
+
+    router.beforeEach((to, from, next) => {
+        if (to.matched.some(record => record.meta.requiresAuth)) {
+            // this route requires auth, check if logged in
+            // if not, redirect to login page.
+            if (true) {
+                next({
+                    path: '/',
+                    query: { redirect: to.fullPath }
+                })
+            } else {
+                next()
+            }
+        } else {
+            next() // 确保一定要调用 next()
+        }
+    })
+
+    new Vue({
+        router,
+        el: '#app'
+    })
+</script>
+</body>
+</html>
